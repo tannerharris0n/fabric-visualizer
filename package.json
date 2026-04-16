@@ -1,0 +1,33 @@
+{
+  "name": "fabric-visualizer",
+  "version": "1.0.0",
+  "private": false,
+  "license": "MIT",
+  "type": "module",
+  "description": "Before/after topology visualizer for Fortinet Security Fabric with AI-powered discovery parsing. Open-source tool for Sales Engineers.",
+  "homepage": "https://github.com/tannerharris0n/fabric-visualizer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tannerharris0n/fabric-visualizer.git"
+  },
+  "author": "Tanner Harrison",
+  "keywords": [
+    "fortinet", "security-fabric", "topology", "visualizer", "network-diagram",
+    "sales-engineering", "fortigate", "claude", "ai", "migration-planning"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
+  }
+}
