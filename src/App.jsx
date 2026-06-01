@@ -306,7 +306,7 @@ export default function App() {
   const hoverLayer = hoverId ? LAYERS.find(l => l.id === hoverId) : null;
 
   return (
-    <div style={S.page}>
+    <div style={S.page} className="page">
       <style>{baseStyles}</style>
 
       <div style={S.header}>
@@ -316,13 +316,19 @@ export default function App() {
         <h1 style={S.h1}>
           {customerName ? `${customerName} — ` : ''}Current state → Security Fabric
         </h1>
-        <p style={S.sub}>
+        <p style={S.sub} className="no-print">
           Hover any box in the diagram to see what Fortinet product replaces it and why.
+        </p>
+        {/* Paper gets a self-contained caption instead of the hover hint */}
+        <p style={S.sub} className="print-only">
+          Consolidating {vendorCount} vendor{vendorCount === 1 ? '' : 's'} across{' '}
+          {filledLayers.length} technology layer{filledLayers.length === 1 ? '' : 's'} onto
+          a single-vendor Fortinet Security Fabric. Generated {new Date().toLocaleDateString()}.
         </p>
       </div>
 
       {/* stats */}
-      <div style={S.statGrid}>
+      <div style={S.statGrid} className="avoid-break">
         <div style={S.stat}>
           <div style={S.statLabel}>Vendors today</div>
           <div style={S.statValue}>{vendorCount}</div>
@@ -357,7 +363,7 @@ export default function App() {
       )}
 
       {/* diagram */}
-      <div style={S.diagramWrap}>
+      <div style={S.diagramWrap} className="diagram-wrap avoid-break">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 40px 1fr', gap: 20, alignItems: 'start' }}>
 
           {/* BEFORE */}
@@ -394,10 +400,10 @@ export default function App() {
 
       {/* migration plan */}
       {plan.length > 0 && (
-        <div style={{ ...S.card, marginBottom: 20 }}>
+        <div style={{ ...S.card, marginBottom: 20 }} className="card avoid-break">
           <div style={S.sectionTitle}>Phased migration plan</div>
           {plan.map(p => (
-            <div key={p.phase} style={S.planRow}>
+            <div key={p.phase} style={S.planRow} className="avoid-break">
               <span style={S.planPhase}>PHASE {p.phase}</span>
               <span style={S.planQuarter}>{p.quarter}</span>
               <div>
@@ -415,7 +421,7 @@ export default function App() {
       )}
 
       {/* actions */}
-      <div style={S.buttonRow}>
+      <div style={S.buttonRow} className="no-print">
         <button style={S.button} onClick={() => setStep('build')}>
           ← Edit topology
         </button>
@@ -604,7 +610,7 @@ function ExportModal({ onClose, customerName, state, presetKey,
   };
 
   return (
-    <div style={S.backdrop} onClick={onClose}>
+    <div style={S.backdrop} className="no-print" onClick={onClose}>
       <div style={S.modal} onClick={e => e.stopPropagation()}>
         <h2 style={S.h}>Export options</h2>
         <p style={S.sub}>

@@ -47,8 +47,45 @@ export const fontImport =
 export const baseStyles = `
   ${fontImport}
   @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeSlide { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
   * { box-sizing: border-box; margin: 0; }
   body { background: ${theme.bg}; color: ${theme.text}; font-family: ${fonts.body}; -webkit-font-smoothing: antialiased; margin: 0; }
   input:focus, textarea:focus, select:focus { border-color: ${theme.accent} !important; box-shadow: 0 0 0 3px ${theme.accentDim}; outline: none; }
   ::selection { background: ${theme.accentDim}; color: ${theme.text}; }
+
+  /* Elements that only belong on paper */
+  .print-only { display: none; }
+
+  /* ── Print / "Export PDF" layout ───────────────────────────────
+     window.print() renders the live DOM, so without these rules the
+     PDF would include the toolbar buttons, the dimmed export-modal
+     overlay, and screen-only flourishes — and browsers strip the
+     accent/green fills by default. Fix all of that here. */
+  @media print {
+    @page { size: auto; margin: 14mm; }
+
+    html, body {
+      background: #fff !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    /* Honor brand colors (accent boxes, green stats, before/after labels) */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Drop interactive chrome and the modal overlay from the page */
+    .no-print { display: none !important; }
+    .print-only { display: block; }
+
+    /* Reclaim the page: the app is centered + padded for screen */
+    .page { padding: 0 !important; max-width: none !important; }
+
+    /* Keep logical blocks from splitting across page breaks */
+    .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+
+    /* Soften card shadows that render as muddy gray boxes in print */
+    .card, .diagram-wrap, .stat { box-shadow: none !important; }
+  }
 `;
